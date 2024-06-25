@@ -23,3 +23,19 @@ test('Testando cadastro de três perguntas', () => {
   expect(perguntas[2].num_respostas).toBe(0);
   expect(perguntas[1].id_pergunta).toBe(perguntas[2].id_pergunta-1);
 });
+
+
+test("Testando cadastro e listagem de respostas", () => {
+  const perguntaId = modelo.cadastrar_pergunta('Qual palavra mais falada em Minas Gerais?');
+  modelo.cadastrar_resposta(perguntaId, 'Uai');
+  const respostas = modelo.get_respostas(perguntaId);
+  expect(respostas.length).toBe(1);
+  expect(respostas[0].texto).toBe('Uai');
+})
+
+test('Testando função get_pergunta', () => {
+  const perguntaId = modelo.cadastrar_pergunta('Qual a raiz quadrada de 400?');
+  const pergunta = modelo.get_pergunta(perguntaId);
+  expect(pergunta.id_pergunta).toBe(perguntaId);
+  expect(pergunta.texto).toBe('Qual a raiz quadrada de 400?');
+});
